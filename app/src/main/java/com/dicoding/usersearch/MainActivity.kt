@@ -1,0 +1,62 @@
+package com.dicoding.usersearch
+
+import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.usersearch.data.response.ItemsItem
+import com.dicoding.usersearch.databinding.ActivityMainBinding
+import com.google.android.material.search.SearchBar
+import com.google.android.material.search.SearchView
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(MainViewModel::class.java)
+
+        binding.searchView.setupWithSearchBar(binding.sbUser)
+        binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
+            binding.searchView.hide()
+            mainViewModel.searchByName(binding.searchView.text.toString())
+            false
+        }
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvUser.layoutManager = layoutManager
+
+        mainViewModel.listUser.observe(this) {
+            setUserData(it)
+        }
+
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.pbUserList.visibility = View.VISIBLE
+        } else {
+            binding.pbUserList.visibility = View.GONE
+        }
+    }
+
+    private fun setUserData(users: List<ItemsItem>) {
+        val adapter = SearchAdapter()
+        adapter.submitList(users)
+
+        binding.rvUser.adapter = adapter
+    }
+}

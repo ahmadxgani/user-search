@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">User Search</string>
+    <string name="tab_text_1">Followings</string>
+    <string name="tab_text_2">Followers</string>
+    <string name="searchbar_hint">Search username…</string>
+    <string name="username">USERNAME HERE</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="user_profile">User Profile</string>
+    <string name="total_gists">Total gists: %1$d</string>
+    <string name="total_followers">Total followers: %1$d</string>
+    <string name="total_followings">Total followings: %1$d</string>
+    <string name="total_repositories">Total public repositories: %1$d</string>
+    <string name="account_created_at">Account created at %1$s</string>
+    <string name="full_name">full name: %1$s</string>
+</resources>
