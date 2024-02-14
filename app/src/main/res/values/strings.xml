@@ -4,7 +4,6 @@
     <string name="tab_text_2">Followers</string>
     <string name="searchbar_hint">Search username…</string>
     <string name="username">USERNAME HERE</string>
-    <string name="content_tab_text">This is Tab %1$d</string>
     <string name="user_profile">User Profile</string>
     <string name="total_gists">Total gists: %1$d</string>
     <string name="total_followers">Total followers: %1$d</string>

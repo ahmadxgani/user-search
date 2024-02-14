@@ -160,7 +160,9 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:id="@+id/fab_add_or_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -170,4 +172,16 @@
         app:layout_anchor="@id/constraint_layout"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_favorite_border" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_open_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/favorite_button"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:layout_anchor="@id/constraint_layout"
+        app:layout_anchorGravity="bottom|start"
+        app:srcCompat="@drawable/ic_open_new" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

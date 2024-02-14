@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.usersearch.data.response.FollowResponseItem
+import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.databinding.FragmentFollowingBinding
-import com.dicoding.usersearch.ui.detail.FollowAdapter
+import com.dicoding.usersearch.ui.UserAdapter
 
 class FollowingFragment(private val viewModel: FollowingViewModel) : Fragment() {
     private var _binding: FragmentFollowingBinding? = null
@@ -43,17 +43,19 @@ class FollowingFragment(private val viewModel: FollowingViewModel) : Fragment() 
     }
 
     private fun showLoadingFollowing(isLoading: Boolean) {
-        if (isLoading) {
-            binding.pbFollowing.visibility = View.VISIBLE
-            binding.rvFollowing.visibility = View.GONE
-        } else {
-            binding.pbFollowing.visibility = View.GONE
-            binding.rvFollowing.visibility = View.VISIBLE
+        with(binding) {
+            if (isLoading) {
+                pbFollowing.visibility = View.VISIBLE
+                rvFollowing.visibility = View.GONE
+            } else {
+                pbFollowing.visibility = View.GONE
+                rvFollowing.visibility = View.VISIBLE
+            }
         }
     }
 
-    private fun setFollowing(users: List<FollowResponseItem>) {
-        val adapter = FollowAdapter(requireActivity())
+    private fun setFollowing(users: List<UserItem>) {
+        val adapter = UserAdapter()
         adapter.submitList(users)
 
         binding.rvFollowing.adapter = adapter

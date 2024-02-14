@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.usersearch.R
 import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.databinding.ActivityMainBinding
+import com.dicoding.usersearch.ui.UserAdapter
 import com.dicoding.usersearch.ui.favorite.FavoriteListActivity
 import com.dicoding.usersearch.ui.setting.SettingActivity
 import com.dicoding.usersearch.ui.setting.SettingPreferences
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserData(users: List<UserItem>) {
-        val adapter = SearchAdapter()
+        val adapter = UserAdapter()
         adapter.submitList(users)
 
         binding.rvUser.adapter = adapter

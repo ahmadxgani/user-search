@@ -1,4 +1,4 @@
-package com.dicoding.usersearch.ui.main
+package com.dicoding.usersearch.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +12,8 @@ import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.databinding.CardItemBinding
 import com.dicoding.usersearch.ui.detail.DetailUserActivity
 
-class SearchAdapter : ListAdapter<UserItem, SearchAdapter.MyViewHolder>(DIFF_CALLBACK) {
-    class MyViewHolder(private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class UserAdapter : ListAdapter<UserItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    inner class MyViewHolder(private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: UserItem) {
             binding.tvUsername.text = user.login
             Glide.with(binding.root)

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.usersearch.data.response.FollowResponseItem
+import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,16 +18,16 @@ class FollowingViewModel: ViewModel() {
     private val _isLoadingFollowing = MutableLiveData<Boolean>()
     val isLoadingFollowing: LiveData<Boolean> = _isLoadingFollowing
 
-    private val _listFollowing = MutableLiveData<List<FollowResponseItem>>()
-    val listFollowing: LiveData<List<FollowResponseItem>> = _listFollowing
+    private val _listFollowing = MutableLiveData<List<UserItem>>()
+    val listFollowing: LiveData<List<UserItem>> = _listFollowing
 
     fun getListFollowing(user: String) {
         _isLoadingFollowing.value = true
         val client = ApiConfig.getApiService().getFollowing(user)
-        client.enqueue(object : Callback<List<FollowResponseItem>> {
+        client.enqueue(object : Callback<List<UserItem>> {
             override fun onResponse(
-                call: Call<List<FollowResponseItem>>,
-                response: Response<List<FollowResponseItem>>
+                call: Call<List<UserItem>>,
+                response: Response<List<UserItem>>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -40,7 +40,7 @@ class FollowingViewModel: ViewModel() {
                 _isLoadingFollowing.value = false
             }
 
-            override fun onFailure(call: Call<List<FollowResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<UserItem>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
                 _isLoadingFollowing.value = false
             }

@@ -1,19 +1,24 @@
 package com.dicoding.usersearch.ui.detail
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.usersearch.data.repository.UserRepository
 import com.dicoding.usersearch.data.response.DetailUserResponse
+import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel: ViewModel() {
+class DetailUserViewModel(application: Application): ViewModel() {
     companion object {
         private const val TAG = "DetailUserViewModel"
     }
+
+    private val mNoteRepository: UserRepository = UserRepository(application)
 
     private val _isLoadingDetail = MutableLiveData<Boolean>()
     val isLoadingDetail: LiveData<Boolean> = _isLoadingDetail
@@ -45,5 +50,15 @@ class DetailUserViewModel: ViewModel() {
                 _isLoadingDetail.value = false
             }
         })
+    }
+
+    fun getUserByNode(nodeId: String) = mNoteRepository.getUserByNode(nodeId)
+
+    fun insert(user: UserItem) {
+        mNoteRepository.insert(user)
+    }
+
+    fun delete(user: UserItem) {
+        mNoteRepository.delete(user)
     }
 }

@@ -1,5 +1,7 @@
 package com.dicoding.usersearch.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
@@ -8,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.usersearch.R
 import com.dicoding.usersearch.data.response.DetailUserResponse
+import com.dicoding.usersearch.data.response.toUserItem
 import com.dicoding.usersearch.databinding.ActivityDetailUserBinding
+import com.dicoding.usersearch.ui.ViewModelFactory
 import com.dicoding.usersearch.ui.detail.fragment.FollowerViewModel
 import com.dicoding.usersearch.ui.detail.fragment.FollowingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -27,24 +31,26 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun showLoadingDetail(isLoading: Boolean) {
+        with (binding) {
         if (isLoading) {
-            binding.pbDetailUser.visibility = View.VISIBLE
+            pbDetailUser.visibility = View.VISIBLE
 
-            binding.tvFollower.visibility = View.INVISIBLE
-            binding.tvFollowing.visibility = View.INVISIBLE
-            binding.tvGist.visibility = View.INVISIBLE
-            binding.tvName.visibility = View.INVISIBLE
-            binding.tvCreated.visibility = View.INVISIBLE
-            binding.tvRepo.visibility = View.INVISIBLE
+            tvFollower.visibility = View.INVISIBLE
+            tvFollowing.visibility = View.INVISIBLE
+            tvGist.visibility = View.INVISIBLE
+            tvName.visibility = View.INVISIBLE
+            tvCreated.visibility = View.INVISIBLE
+            tvRepo.visibility = View.INVISIBLE
         } else {
-            binding.pbDetailUser.visibility = View.GONE
+            pbDetailUser.visibility = View.GONE
 
-            binding.tvFollower.visibility = View.VISIBLE
-            binding.tvFollowing.visibility = View.VISIBLE
-            binding.tvGist.visibility = View.VISIBLE
-            binding.tvName.visibility = View.VISIBLE
-            binding.tvCreated.visibility = View.VISIBLE
-            binding.tvRepo.visibility = View.VISIBLE
+            tvFollower.visibility = View.VISIBLE
+            tvFollowing.visibility = View.VISIBLE
+            tvGist.visibility = View.VISIBLE
+            tvName.visibility = View.VISIBLE
+            tvCreated.visibility = View.VISIBLE
+            tvRepo.visibility = View.VISIBLE
+        }
         }
     }
 
@@ -57,7 +63,7 @@ class DetailUserActivity : AppCompatActivity() {
 
         val detailViewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            ViewModelFactory.getInstance(application)
         )[DetailUserViewModel::class.java]
 
         val followingViewModel = ViewModelProvider(
@@ -80,8 +86,20 @@ class DetailUserActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-        detailViewModel.detailUser.observe(this) {
-            setUser(it)
+        detailViewModel.detailUser.observe(this) { fetchedUser ->
+            detailViewModel.getUserByNode(fetchedUser.nodeId).observe(this) { storedUser ->
+                val icon =
+                    if (storedUser != null) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+                binding.fabAddOrDelete.setImageResource(icon)
+                binding.fabAddOrDelete.visibility = View.VISIBLE
+
+                binding.fabAddOrDelete.setOnClickListener {
+                    if (storedUser != null) detailViewModel.delete(storedUser)
+                    else detailViewModel.insert(fetchedUser.toUserItem())
+                }
+
+            }
+            setUser(fetchedUser)
         }
 
         detailViewModel.isLoadingDetail.observe(this) {
@@ -95,15 +113,22 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun setUser(user: DetailUserResponse) {
-        binding.tvUsername.text = user.login
-        binding.tvGist.text = getString(R.string.total_gists, user.publicGists)
-        binding.tvName.text = getString(R.string.full_name, user.name)
-        binding.tvFollower.text = getString(R.string.total_followers, user.followers)
-        binding.tvFollowing.text = getString(R.string.total_followings, user.following)
-        binding.tvRepo.text = getString(R.string.total_repositories, user.publicRepos)
-        binding.tvCreated.text = getString(R.string.account_created_at, user.createdAt)
-        Glide.with(this)
-            .load(user.avatarUrl)
-            .into(binding.ivProfileDetail)
+        with(binding) {
+            fabOpenLink.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://gist.github.com/${user.login}"))
+                startActivity(intent)
+            }
+
+            tvUsername.text = user.login
+            tvGist.text = getString(R.string.total_gists, user.publicGists)
+            tvName.text = getString(R.string.full_name, user.name)
+            tvFollower.text = getString(R.string.total_followers, user.followers)
+            tvFollowing.text = getString(R.string.total_followings, user.following)
+            tvRepo.text = getString(R.string.total_repositories, user.publicRepos)
+            tvCreated.text = getString(R.string.account_created_at, user.createdAt)
+            Glide.with(this@DetailUserActivity)
+                .load(user.avatarUrl)
+                .into(ivProfileDetail)
+        }
     }
 }
