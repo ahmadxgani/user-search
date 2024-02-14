@@ -15,4 +15,7 @@
     <string name="enable_dark_mode">Dark Mode</string>
     <string name="setting">Setting</string>
     <string name="favorite_list">Favorite List</string>
+    <string name="profile_user">Profile User</string>
+    <string name="favorite_button">Favorite Button</string>
+    <string name="list_follower_and_following">List Follower and Following</string>
 </resources>
