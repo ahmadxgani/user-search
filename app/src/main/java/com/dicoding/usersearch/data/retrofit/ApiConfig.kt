@@ -16,15 +16,21 @@ class ApiConfig {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
             }
             val client = OkHttpClient.Builder()
+                .addInterceptor {
+                    val original = it.request()
+                    val requestBuilder = original.newBuilder()
+                        .header("Authorization", BuildConfig.GITHUB_TOKEN)
+                    val request = requestBuilder.build()
+                    it.proceed(request)
+                }
                 .connectTimeout(Duration.ofDays(1))
                 .readTimeout(Duration.ofDays(1))
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
-
                 .build()
             return retrofit.create(ApiService::class.java)
         }
