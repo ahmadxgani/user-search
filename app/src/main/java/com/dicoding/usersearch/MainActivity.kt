@@ -42,7 +42,11 @@ class MainActivity : AppCompatActivity() {
             sbUser.inflateMenu(R.menu.option_menu)
             sbUser.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.menu1 -> true
+                    R.id.menu1 -> {
+                        val intent = Intent(this@MainActivity, FavoriteListActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
                     R.id.menu2 -> {
                         val intent = Intent(this@MainActivity, SettingActivity::class.java)
                         startActivity(intent)
