@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.usersearch.data.response.ItemsItem
+import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.databinding.CardItemBinding
 import com.dicoding.usersearch.ui.detail.DetailUserActivity
 
-class SearchAdapter : ListAdapter<ItemsItem, SearchAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter : ListAdapter<UserItem, SearchAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ItemsItem) {
+        fun bind(user: UserItem) {
             binding.tvUsername.text = user.login
             Glide.with(binding.root)
                 .load(user.avatarUrl)
@@ -23,12 +23,12 @@ class SearchAdapter : ListAdapter<ItemsItem, SearchAdapter.MyViewHolder>(DIFF_CA
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
-            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserItem>() {
+            override fun areItemsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
+            override fun areContentsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
                 return oldItem == newItem
             }
         }

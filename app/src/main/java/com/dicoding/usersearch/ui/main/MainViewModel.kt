@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.usersearch.data.response.ItemsItem
+import com.dicoding.usersearch.data.response.UserItem
 import com.dicoding.usersearch.data.response.SearchResponse
 import com.dicoding.usersearch.data.retrofit.ApiConfig
 import retrofit2.Call
@@ -19,8 +19,8 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _listUser = MutableLiveData<List<ItemsItem>>()
-    val listUser: LiveData<List<ItemsItem>> = _listUser
+    private val _listUser = MutableLiveData<List<UserItem>>()
+    val listUser: LiveData<List<UserItem>> = _listUser
 
     init {
         searchUser()
