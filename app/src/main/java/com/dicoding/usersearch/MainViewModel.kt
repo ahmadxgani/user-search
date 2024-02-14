@@ -8,8 +8,8 @@ import com.dicoding.usersearch.data.response.ItemsItem
 import com.dicoding.usersearch.data.response.SearchResponse
 import com.dicoding.usersearch.data.retrofit.ApiConfig
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Callback
+import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     companion object {

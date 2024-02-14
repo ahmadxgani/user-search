@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.usersearch.data.response.DetailUserResponse
-import com.dicoding.usersearch.data.response.FollowResponseItem
 import com.dicoding.usersearch.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
