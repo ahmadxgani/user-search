@@ -12,4 +12,7 @@
     <string name="total_repositories">Total public repositories: %1$d</string>
     <string name="account_created_at">Account created at %1$s</string>
     <string name="full_name">full name: %1$s</string>
+    <string name="enable_dark_mode">Dark Mode</string>
+    <string name="setting">Setting</string>
+    <string name="favorite_list">Favorite List</string>
 </resources>

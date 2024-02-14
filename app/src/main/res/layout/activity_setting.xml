@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/sm_dark_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_dark_mode"
+        app:switchPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
