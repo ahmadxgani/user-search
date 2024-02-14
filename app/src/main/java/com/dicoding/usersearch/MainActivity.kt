@@ -2,19 +2,15 @@ package com.dicoding.usersearch
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.usersearch.data.response.ItemsItem
 import com.dicoding.usersearch.databinding.ActivityMainBinding
-import com.google.android.material.search.SearchBar
-import com.google.android.material.search.SearchView
 
 class MainActivity : AppCompatActivity() {
     private var _activityMainBinding: ActivityMainBinding? = null
-    private val binding: ActivityMainBinding = _activityMainBinding!!
+    private val binding get() = _activityMainBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +22,18 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
 
-        binding.searchView.setupWithSearchBar(binding.sbUser)
-        binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
-            binding.searchView.hide()
-            mainViewModel.searchByName(binding.searchView.text.toString())
-            false
+        with(binding) {
+            sbUser.inflateMenu(R.menu.option_menu)
+            sbUser.setOnMenuItemClickListener {
+                true
+            }
+
+            searchView.setupWithSearchBar(sbUser)
+            searchView.editText.setOnEditorActionListener { _, _, _ ->
+                searchView.hide()
+                mainViewModel.searchByName(searchView.text.toString())
+                false
+            }
         }
 
         val layoutManager = LinearLayoutManager(this)
