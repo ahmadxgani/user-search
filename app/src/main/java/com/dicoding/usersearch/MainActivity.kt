@@ -1,8 +1,10 @@
 package com.dicoding.usersearch
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.usersearch.data.response.ItemsItem
@@ -17,6 +19,20 @@ class MainActivity : AppCompatActivity() {
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        val pref = SettingPreferences.getInstance(application.dataStore)
+        val settingViewModel =
+            ViewModelProvider(this, SettingViewModelFactory(pref)).get(SettingViewModel::class.java)
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
+
         val mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
@@ -25,7 +41,16 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             sbUser.inflateMenu(R.menu.option_menu)
             sbUser.setOnMenuItemClickListener {
-                true
+                when (it.itemId) {
+                    R.id.menu1 -> true
+                    R.id.menu2 -> {
+                        val intent = Intent(this@MainActivity, SettingActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+
+                    else -> false
+                }
             }
 
             searchView.setupWithSearchBar(sbUser)
