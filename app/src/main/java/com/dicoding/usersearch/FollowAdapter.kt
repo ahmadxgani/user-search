@@ -1,6 +1,8 @@
 package com.dicoding.usersearch
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -42,5 +44,12 @@ class FollowAdapter(private val context: Context) : ListAdapter<FollowResponseIt
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user, context)
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString(DetailUserActivity.USERNAME, user.login)
+            val intent = Intent(holder.itemView.context, DetailUserActivity::class.java)
+            intent.putExtras(bundle)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }
