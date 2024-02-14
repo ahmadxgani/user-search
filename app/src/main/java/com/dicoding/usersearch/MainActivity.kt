@@ -13,11 +13,12 @@ import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private var _activityMainBinding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding = _activityMainBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val mainViewModel = ViewModelProvider(
@@ -43,6 +44,11 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _activityMainBinding = null
     }
 
     private fun showLoading(isLoading: Boolean) {

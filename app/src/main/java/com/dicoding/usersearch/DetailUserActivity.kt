@@ -11,7 +11,8 @@ import com.dicoding.usersearch.databinding.ActivityDetailUserBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailUserBinding
+    private var _activityDetailBinding: ActivityDetailUserBinding? = null
+    private val binding get() = _activityDetailBinding!!
 
     companion object {
         @StringRes
@@ -46,7 +47,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailUserBinding.inflate(layoutInflater)
+        _activityDetailBinding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = intent.extras!!.getString(USERNAME)!!
@@ -83,6 +84,11 @@ class DetailUserActivity : AppCompatActivity() {
         detailViewModel.isLoadingDetail.observe(this) {
             showLoadingDetail(it)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _activityDetailBinding = null
     }
 
     private fun setUser(user: DetailUserResponse) {
