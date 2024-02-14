@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.setting
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory

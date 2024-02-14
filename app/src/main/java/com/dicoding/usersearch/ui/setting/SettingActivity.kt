@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,7 @@ class SettingActivity : AppCompatActivity() {
 
         val pref = SettingPreferences.getInstance(application.dataStore)
         val settingViewModel =
-            ViewModelProvider(this, SettingViewModelFactory(pref)).get(SettingViewModel::class.java)
+            ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
         settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
             with(binding) {

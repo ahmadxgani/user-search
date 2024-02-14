@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

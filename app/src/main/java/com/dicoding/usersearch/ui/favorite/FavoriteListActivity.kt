@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.favorite
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

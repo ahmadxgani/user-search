@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.usersearch.R
 import com.dicoding.usersearch.data.response.ItemsItem
 import com.dicoding.usersearch.databinding.ActivityMainBinding
+import com.dicoding.usersearch.ui.favorite.FavoriteListActivity
+import com.dicoding.usersearch.ui.setting.SettingActivity
+import com.dicoding.usersearch.ui.setting.SettingPreferences
+import com.dicoding.usersearch.ui.setting.SettingViewModel
+import com.dicoding.usersearch.ui.setting.SettingViewModelFactory
+import com.dicoding.usersearch.ui.setting.dataStore
 
 class MainActivity : AppCompatActivity() {
     private var _activityMainBinding: ActivityMainBinding? = null
@@ -19,10 +26,9 @@ class MainActivity : AppCompatActivity() {
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val pref = SettingPreferences.getInstance(application.dataStore)
         val settingViewModel =
-            ViewModelProvider(this, SettingViewModelFactory(pref)).get(SettingViewModel::class.java)
+            ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
         settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
@@ -36,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
 
         with(binding) {
             sbUser.inflateMenu(R.menu.option_menu)

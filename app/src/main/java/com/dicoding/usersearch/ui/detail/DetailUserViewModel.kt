@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -32,7 +32,7 @@ class DetailUserViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _detailUser.value = responseBody!!
+                        _detailUser.value = responseBody
                     } else {
                         Log.e(TAG, "onFailure: ${response.message()}")
                     }

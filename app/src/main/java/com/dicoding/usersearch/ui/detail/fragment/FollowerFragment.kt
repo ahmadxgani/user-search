@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.detail.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.usersearch.data.response.FollowResponseItem
 import com.dicoding.usersearch.databinding.FragmentFollowerBinding
+import com.dicoding.usersearch.ui.detail.FollowAdapter
 
 class FollowerFragment(private val viewModel: FollowerViewModel) : Fragment() {
     private var _binding: FragmentFollowerBinding? = null

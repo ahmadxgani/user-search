@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.detail
 
 import android.os.Bundle
 import android.view.View
@@ -6,8 +6,11 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.dicoding.usersearch.R
 import com.dicoding.usersearch.data.response.DetailUserResponse
 import com.dicoding.usersearch.databinding.ActivityDetailUserBinding
+import com.dicoding.usersearch.ui.detail.fragment.FollowerViewModel
+import com.dicoding.usersearch.ui.detail.fragment.FollowingViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
@@ -55,17 +58,17 @@ class DetailUserActivity : AppCompatActivity() {
         val detailViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(DetailUserViewModel::class.java)
+        )[DetailUserViewModel::class.java]
 
         val followingViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(FollowingViewModel::class.java)
+        )[FollowingViewModel::class.java]
 
         val followerViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        ).get(FollowerViewModel::class.java)
+        )[FollowerViewModel::class.java]
 
         detailViewModel.getDetailUser(username)
         followerViewModel.getListFollower(username)

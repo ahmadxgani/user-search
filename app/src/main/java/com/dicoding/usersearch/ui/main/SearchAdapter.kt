@@ -1,6 +1,5 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,28 +8,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.usersearch.data.response.FollowResponseItem
+import com.dicoding.usersearch.data.response.ItemsItem
 import com.dicoding.usersearch.databinding.CardItemBinding
+import com.dicoding.usersearch.ui.detail.DetailUserActivity
 
-class FollowAdapter(private val context: Context) : ListAdapter<FollowResponseItem, FollowAdapter.MyViewHolder>(
-    DIFF_CALLBACK
-)  {
+class SearchAdapter : ListAdapter<ItemsItem, SearchAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: FollowResponseItem, context: Context) {
+        fun bind(user: ItemsItem) {
             binding.tvUsername.text = user.login
-            Glide.with(context)
+            Glide.with(binding.root)
                 .load(user.avatarUrl)
                 .into(binding.ivProfileCard)
         }
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowResponseItem>() {
-            override fun areItemsTheSame(oldItem: FollowResponseItem, newItem: FollowResponseItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
+            override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: FollowResponseItem, newItem: FollowResponseItem): Boolean {
+            override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
                 return oldItem == newItem
             }
         }
@@ -43,7 +41,7 @@ class FollowAdapter(private val context: Context) : ListAdapter<FollowResponseIt
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val user = getItem(position)
-        holder.bind(user, context)
+        holder.bind(user)
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(DetailUserActivity.USERNAME, user.login)

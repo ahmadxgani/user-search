@@ -1,4 +1,4 @@
-package com.dicoding.usersearch
+package com.dicoding.usersearch.ui.detail.fragment
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,20 +10,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowerViewModel: ViewModel() {
+class FollowingViewModel: ViewModel() {
     companion object {
-        private const val TAG = "FollowerViewViewModel"
+        private const val TAG = "FollowingViewModel"
     }
 
-    private val _isLoadingFollower = MutableLiveData<Boolean>()
-    val isLoadingFollower: LiveData<Boolean> = _isLoadingFollower
+    private val _isLoadingFollowing = MutableLiveData<Boolean>()
+    val isLoadingFollowing: LiveData<Boolean> = _isLoadingFollowing
 
-    private val _listFollower = MutableLiveData<List<FollowResponseItem>>()
-    val listFollower: LiveData<List<FollowResponseItem>> = _listFollower
+    private val _listFollowing = MutableLiveData<List<FollowResponseItem>>()
+    val listFollowing: LiveData<List<FollowResponseItem>> = _listFollowing
 
-    fun getListFollower(user: String) {
-        _isLoadingFollower.value = true
-        val client = ApiConfig.getApiService().getFollower(user)
+    fun getListFollowing(user: String) {
+        _isLoadingFollowing.value = true
+        val client = ApiConfig.getApiService().getFollowing(user)
         client.enqueue(object : Callback<List<FollowResponseItem>> {
             override fun onResponse(
                 call: Call<List<FollowResponseItem>>,
@@ -32,17 +32,17 @@ class FollowerViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _listFollower.value = responseBody
+                        _listFollowing.value = responseBody
                     } else {
                         Log.e(TAG, "onFailure: ${response.message()}")
                     }
                 }
-                _isLoadingFollower.value = false
+                _isLoadingFollowing.value = false
             }
 
             override fun onFailure(call: Call<List<FollowResponseItem>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
-                _isLoadingFollower.value = false
+                _isLoadingFollowing.value = false
             }
         })
     }
