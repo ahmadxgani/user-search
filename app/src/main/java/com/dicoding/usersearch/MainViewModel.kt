@@ -26,7 +26,7 @@ class MainViewModel : ViewModel() {
         searchUser()
     }
 
-    public fun searchByName(name: String) {
+    fun searchByName(name: String) {
         searchUser(name)
     }
 
