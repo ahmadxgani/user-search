@@ -18,4 +18,5 @@
     <string name="profile_user">Profile User</string>
     <string name="favorite_button">Favorite Button</string>
     <string name="list_follower_and_following">List Follower and Following</string>
+    <string name="tv_favorite_user_label">No favorite users yet, please add some first</string>
 </resources>

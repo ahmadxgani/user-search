@@ -15,7 +15,7 @@
         android:theme="@style/Theme.UserSearch"
         tools:targetApi="31">
         <activity
-            android:name=".SavedListActivity"
+            android:name=".FavoriteListActivity"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"
