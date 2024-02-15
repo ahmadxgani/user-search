@@ -13,12 +13,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel(application: Application): ViewModel() {
+class DetailUserViewModel(private val userRepository: UserRepository): ViewModel() {
     companion object {
         private const val TAG = "DetailUserViewModel"
     }
-
-    private val mNoteRepository: UserRepository = UserRepository(application)
 
     private val _isLoadingDetail = MutableLiveData<Boolean>()
     val isLoadingDetail: LiveData<Boolean> = _isLoadingDetail
@@ -52,13 +50,13 @@ class DetailUserViewModel(application: Application): ViewModel() {
         })
     }
 
-    fun getUserByNode(nodeId: String) = mNoteRepository.getUserByNode(nodeId)
+    fun getUserByNode(nodeId: String) = userRepository.getUserByNode(nodeId)
 
     fun insert(user: UserItem) {
-        mNoteRepository.insert(user)
+        userRepository.insert(user)
     }
 
     fun delete(user: UserItem) {
-        mNoteRepository.delete(user)
+        userRepository.delete(user)
     }
 }

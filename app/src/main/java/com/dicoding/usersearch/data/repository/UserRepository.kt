@@ -24,4 +24,16 @@ class UserRepository(application: Application) {
     fun insert(user: UserItem) = executorService.execute { mUserDao.insert(user) }
 
     fun delete(user: UserItem) = executorService.execute { mUserDao.delete(user) }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: UserRepository? = null
+
+        @JvmStatic
+        fun getInstance(application: Application) : UserRepository {
+            return INSTANCE ?: synchronized(this) {
+                UserRepository(application)
+            }.also { INSTANCE = it }
+        }
+    }
 }

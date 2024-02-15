@@ -13,6 +13,7 @@ class FavoriteListActivity : AppCompatActivity() {
     private var _activityFavoriteBinding: ActivityFavoriteListBinding? = null
     private val binding get() = _activityFavoriteBinding!!
     private lateinit var adapter: UserAdapter
+    private lateinit var favoriteListViewModel: FavoriteListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,19 +27,20 @@ class FavoriteListActivity : AppCompatActivity() {
             rvFav.adapter = adapter
         }
 
-        val favoriteListViewModel = ViewModelProvider(
+        favoriteListViewModel = ViewModelProvider(
             this,
             ViewModelFactory.getInstance(application)
         )[FavoriteListViewModel::class.java]
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         favoriteListViewModel.getAllUser().observe(this) { userList ->
             if (userList.isNotEmpty()) {
                 binding.tvLabelFav.visibility = View.GONE
                 binding.rvFav.visibility = View.VISIBLE
                 adapter.submitList(userList)
-            } else {
-                binding.tvLabelFav.visibility = View.VISIBLE
-                binding.rvFav.visibility = View.GONE
             }
         }
     }
