@@ -31,26 +31,26 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun showLoadingDetail(isLoading: Boolean) {
-        with (binding) {
-        if (isLoading) {
-            pbDetailUser.visibility = View.VISIBLE
+        with(binding) {
+            if (isLoading) {
+                pbDetailUser.visibility = View.VISIBLE
 
-            tvFollower.visibility = View.INVISIBLE
-            tvFollowing.visibility = View.INVISIBLE
-            tvGist.visibility = View.INVISIBLE
-            tvName.visibility = View.INVISIBLE
-            tvCreated.visibility = View.INVISIBLE
-            tvRepo.visibility = View.INVISIBLE
-        } else {
-            pbDetailUser.visibility = View.GONE
+                tvFollower.visibility = View.INVISIBLE
+                tvFollowing.visibility = View.INVISIBLE
+                tvGist.visibility = View.INVISIBLE
+                tvName.visibility = View.INVISIBLE
+                tvCreated.visibility = View.INVISIBLE
+                tvRepo.visibility = View.INVISIBLE
+            } else {
+                pbDetailUser.visibility = View.GONE
 
-            tvFollower.visibility = View.VISIBLE
-            tvFollowing.visibility = View.VISIBLE
-            tvGist.visibility = View.VISIBLE
-            tvName.visibility = View.VISIBLE
-            tvCreated.visibility = View.VISIBLE
-            tvRepo.visibility = View.VISIBLE
-        }
+                tvFollower.visibility = View.VISIBLE
+                tvFollowing.visibility = View.VISIBLE
+                tvGist.visibility = View.VISIBLE
+                tvName.visibility = View.VISIBLE
+                tvCreated.visibility = View.VISIBLE
+                tvRepo.visibility = View.VISIBLE
+            }
         }
     }
 

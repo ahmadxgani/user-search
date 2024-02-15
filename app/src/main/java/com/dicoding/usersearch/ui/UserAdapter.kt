@@ -25,11 +25,11 @@ class UserAdapter : ListAdapter<UserItem, UserAdapter.MyViewHolder>(DIFF_CALLBAC
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserItem>() {
             override fun areItemsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
-                return oldItem == newItem
+                return oldItem.nodeId == newItem.nodeId
             }
 
             override fun areContentsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
-                return oldItem == newItem
+                return oldItem.nodeId == newItem.nodeId && oldItem.login == newItem.login&& oldItem.avatarUrl == newItem.avatarUrl
             }
         }
     }

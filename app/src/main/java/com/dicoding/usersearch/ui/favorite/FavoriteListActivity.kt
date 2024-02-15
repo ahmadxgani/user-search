@@ -36,7 +36,15 @@ class FavoriteListActivity : AppCompatActivity() {
                 binding.tvLabelFav.visibility = View.GONE
                 binding.rvFav.visibility = View.VISIBLE
                 adapter.submitList(userList)
+            } else {
+                binding.tvLabelFav.visibility = View.VISIBLE
+                binding.rvFav.visibility = View.GONE
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _activityFavoriteBinding = null
     }
 }
